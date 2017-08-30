@@ -96,9 +96,9 @@ namespace {
 
           if (Node->hasExplicitTemplateArgs())
             TemplateSpecializationType::PrintTemplateArgumentList(OS,
-                                                        Node->getTemplateArgs(),
-                                                     Node->getNumTemplateArgs(),
-                                                                      m_Policy);
+																  llvm::ArrayRef<clang::TemplateArgumentLoc>(Node->getTemplateArgs(),
+																								             Node->getNumTemplateArgs()),
+                                                                  m_Policy);
           if (Node->hasExplicitTemplateArgs())
             assert((Node->getTemplateArgs() || Node->getNumTemplateArgs()) && \
                    "There shouldn't be template paramlist");

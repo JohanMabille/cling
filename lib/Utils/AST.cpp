@@ -290,7 +290,7 @@ namespace utils {
       if (mightHaveChanged) {
         QualType QT
           = Ctx.getTemplateSpecializationType(TST->getTemplateName(),
-                                              desArgs.data(), desArgs.size(),
+                                              llvm::ArrayRef<clang::TemplateArgument>(desArgs.data(), desArgs.size()),
                                               TST->getCanonicalTypeInternal());
         return QT.getTypePtr();
       }
@@ -324,8 +324,8 @@ namespace utils {
             TemplateName TN(TSTdecl->getSpecializedTemplate());
             QualType QT
               = Ctx.getTemplateSpecializationType(TN,
-                                                  desArgs.data(),
-                                                  desArgs.size(),
+                                                  llvm::ArrayRef<clang::TemplateArgument>(desArgs.data(),
+                                                  desArgs.size()),
                                          TSTRecord->getCanonicalTypeInternal());
             return QT.getTypePtr();
           }
@@ -1316,8 +1316,8 @@ namespace utils {
       if (mightHaveChanged) {
         Qualifiers qualifiers = QT.getLocalQualifiers();
         QT = Ctx.getTemplateSpecializationType(TST->getTemplateName(),
-                                               desArgs.data(),
-                                               desArgs.size(),
+                                               llvm::ArrayRef<clang::TemplateArgument>(desArgs.data(),
+                                               desArgs.size()),
                                                TST->getCanonicalTypeInternal());
         QT = Ctx.getQualifiedType(QT, qualifiers);
       }
@@ -1389,8 +1389,8 @@ namespace utils {
           if (mightHaveChanged) {
             Qualifiers qualifiers = QT.getLocalQualifiers();
             TemplateName TN(TSTdecl->getSpecializedTemplate());
-            QT = Ctx.getTemplateSpecializationType(TN, desArgs.data(),
-                                                   desArgs.size(),
+            QT = Ctx.getTemplateSpecializationType(TN, llvm::ArrayRef<clang::TemplateArgument>(desArgs.data(),
+                                                   desArgs.size()),
                                          TSTRecord->getCanonicalTypeInternal());
             QT = Ctx.getQualifiedType(QT, qualifiers);
           }

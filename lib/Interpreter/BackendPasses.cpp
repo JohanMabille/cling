@@ -122,7 +122,6 @@ void BackendPasses::CreatePasses(llvm::Module& M)
   PMBuilder.LoopVectorize = m_CGOpts.VectorizeLoop;
 
   PMBuilder.DisableTailCalls = m_CGOpts.DisableTailCalls;
-  PMBuilder.DisableUnitAtATime = !m_CGOpts.UnitAtATime;
   PMBuilder.DisableUnrollLoops = !m_CGOpts.UnrollLoops;
   PMBuilder.MergeFunctions = m_CGOpts.MergeFunctions;
   PMBuilder.RerollLoops = m_CGOpts.RerollLoops;

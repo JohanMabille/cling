@@ -73,9 +73,6 @@ add_cling_library(clingInterpreter OBJECT
   ValuePrinter.cpp
   ValuePrinterSynthesizer.cpp
 
-  DEPENDS
-  ClangDriverOptions
-
   LINK_LIBS
   ${LIBS}
 )

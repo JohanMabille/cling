@@ -42,6 +42,8 @@ if( CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR )
     message(FATAL_ERROR "llvm-config not found -- ${LLVM_CONFIG}")
   endif()
 
+  find_package(Clang REQUIRED)
+  
   list(GET CONFIG_OUTPUT 0 ENABLE_ASSERTIONS)
   list(GET CONFIG_OUTPUT 1 TOOLS_BINARY_DIR)
   list(GET CONFIG_OUTPUT 2 LIBRARY_DIR)
@@ -101,7 +103,7 @@ if( CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR )
     set(LLVM_INCLUDE_TESTS ON)
   endif()
 
-  include_directories("${LLVM_BINARY_DIR}/include" "${LLVM_MAIN_INCLUDE_DIR}")
+  include_directories("${LLVM_BINARY_DIR}/include" "${LLVM_MAIN_INCLUDE_DIR}" ${CMAKE_INSTALL_PREFIX}/include)
   link_directories("${LLVM_LIBRARY_DIR}")
 
   set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin )
@@ -460,8 +462,8 @@ get_property(CLANG_TABLEGEN_TARGETS GLOBAL PROPERTY CLANG_TABLEGEN_TARGETS)
 list(APPEND LLVM_COMMON_DEPENDS ${CLANG_TABLEGEN_TARGETS})
 
 # And llvm-intrinsics.
-list(APPEND LLVM_COMMON_DEPENDS intrinsics_gen)
-list(APPEND LLVM_COMMON_DEPENDS clang-headers)
+#list(APPEND LLVM_COMMON_DEPENDS intrinsics_gen)
+#list(APPEND LLVM_COMMON_DEPENDS clang-headers)
 
 add_subdirectory(lib)
 add_subdirectory(tools)
